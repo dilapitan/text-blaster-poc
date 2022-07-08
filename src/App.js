@@ -17,16 +17,36 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 function App() {
   const MAX_CHARACTER_COUNT = 160;
-  const [announcement, setAnnouncement] = useState('Hello World');
+  const [announcement, setAnnouncement] = useState('');
   const [recipients, setRecipients] = useState('');
   const [isAnnouncementError, setIsAnnouncementError] = useState(false);
   const [isRecipientError, setIsRecipientError] = useState(false);
   const [isInvalidRecipients, setIsInvalidRecipients] = useState(false);
 
-  function isValidRecipients(recipients) {
-    console.log('recipients:', recipients);
+  function isValidRecipient(recipient) {
+    const SIMPLE_CELLNUMBER_PATTERN = /^09[0-9]{9}$/g;
+    return recipient.match(SIMPLE_CELLNUMBER_PATTERN);
+  }
 
-    return true;
+  function isValidRecipients(recipients) {
+    /**
+     * This is to check each recipient if it's a valid cellphone number
+     */
+
+    const recipientsSplitByComma = recipients.split(',');
+
+    // This is to remove the duplicate numbers so the SMS credit won't be wasted.
+    const recipientsWithNoDuplicates = [...new Set(recipientsSplitByComma)];
+
+    let isValid = true;
+    recipientsWithNoDuplicates.forEach(recipient => {
+      if (!isValidRecipient(recipient.trim())) {
+        isValid = false;
+        return isValid;
+      }
+    });
+
+    return isValid;
   }
 
   const handleAnnouncementChange = e => {
@@ -37,8 +57,16 @@ function App() {
   };
 
   const handleRecipientsChange = e => {
-    setIsRecipientError(false);
+    if (e.target.value === '') {
+      setIsRecipientError(true);
+    } else setIsRecipientError(false);
+
     setRecipients(e.target.value);
+    if (isValidRecipients(e.target.value)) {
+      setIsInvalidRecipients(false);
+    } else {
+      setIsInvalidRecipients(true);
+    }
   };
 
   const handleBlurOnAnnouncement = () => {
@@ -54,10 +82,6 @@ function App() {
 
     console.log('announcement:', announcement);
     console.log('recipients:', recipients);
-
-    if (isValidRecipients(recipients)) {
-      setRecipients(recipients);
-    } else setIsInvalidRecipients(true);
   };
 
   return (
@@ -97,7 +121,7 @@ function App() {
                 <br />
               </FormControl>
 
-              <FormControl isInvalid={isRecipientError}>
+              <FormControl isInvalid={isRecipientError || isInvalidRecipients}>
                 <FormLabel>Recepient(s):</FormLabel>
                 <Text fontSize="xs" ml={1}>
                   Send to multiple numbers by separating with a comma.
@@ -114,7 +138,8 @@ function App() {
                     Entering Recipients is required
                   </FormErrorMessage>
                 )}
-                {isInvalidRecipients && (
+
+                {!isRecipientError && isInvalidRecipients && (
                   <FormErrorMessage>Invalid contact numbers.</FormErrorMessage>
                 )}
               </FormControl>
@@ -126,9 +151,7 @@ function App() {
                 colorScheme="teal"
                 type="submit"
                 disabled={
-                  (isAnnouncementError &&
-                    isRecipientError &&
-                    isInvalidRecipients) ||
+                  isInvalidRecipients ||
                   announcement === '' ||
                   recipients === ''
                 }
