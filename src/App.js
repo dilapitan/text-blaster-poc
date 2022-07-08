@@ -12,6 +12,7 @@ import {
   Text,
   Grid,
   theme,
+  useToast,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 
@@ -22,6 +23,7 @@ function App() {
   const [isAnnouncementError, setIsAnnouncementError] = useState(false);
   const [isRecipientError, setIsRecipientError] = useState(false);
   const [isInvalidRecipients, setIsInvalidRecipients] = useState(false);
+  const toast = useToast();
 
   function isValidRecipient(recipient) {
     const SIMPLE_CELLNUMBER_PATTERN = /^09[0-9]{9}$/g;
@@ -80,8 +82,28 @@ function App() {
   const handleSubmit = event => {
     event.preventDefault();
 
-    console.log('announcement:', announcement);
-    console.log('recipients:', recipients);
+    try {
+      console.log('announcement:', announcement);
+      console.log('recipients:', recipients);
+      setAnnouncement('');
+      setRecipients('');
+
+      toast({
+        title: 'Announcement successfully sent!',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'Something went wrong.',
+        description: 'Please contact your support system.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      throw new Error(error);
+    }
   };
 
   return (
