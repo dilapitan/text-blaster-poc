@@ -23,6 +23,7 @@ function App() {
   const [isAnnouncementError, setIsAnnouncementError] = useState(false);
   const [isRecipientError, setIsRecipientError] = useState(false);
   const [isInvalidRecipients, setIsInvalidRecipients] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
   function isValidRecipient(recipient) {
@@ -83,17 +84,21 @@ function App() {
     event.preventDefault();
 
     try {
+      setIsLoading(true);
       console.log('announcement:', announcement);
       console.log('recipients:', recipients);
       setAnnouncement('');
       setRecipients('');
 
-      toast({
-        title: 'Announcement successfully sent!',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
+      setTimeout(() => {
+        setIsLoading(false);
+        toast({
+          title: 'Announcement successfully sent!',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+      }, 2000);
     } catch (error) {
       toast({
         title: 'Something went wrong.',
@@ -172,6 +177,8 @@ function App() {
                 mt={4}
                 colorScheme="blue"
                 type="submit"
+                isLoading={isLoading}
+                loadingText="Sending announcement..."
                 disabled={
                   isInvalidRecipients ||
                   announcement === '' ||
