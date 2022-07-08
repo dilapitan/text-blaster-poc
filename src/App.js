@@ -99,7 +99,7 @@ function App() {
           duration: 5000,
           isClosable: true,
         });
-      }, 2000);
+      }, 1000);
     } catch (error) {
       toast({
         title: 'Something went wrong.',
