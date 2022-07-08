@@ -14,6 +14,7 @@ import {
   theme,
   useToast,
 } from '@chakra-ui/react';
+import { MdSend } from 'react-icons/md';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 function App() {
@@ -177,6 +178,7 @@ function App() {
                 mt={4}
                 colorScheme="blue"
                 type="submit"
+                rightIcon={<MdSend />}
                 isLoading={isLoading}
                 loadingText="Sending announcement..."
                 disabled={
