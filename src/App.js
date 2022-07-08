@@ -133,7 +133,7 @@ function App() {
                   <Text
                     fontSize="sm"
                     ml={1}
-                    color={announcement.length === 160 ? 'tomato' : null}
+                    color={announcement.length === 160 ? '#FB8C00' : null}
                   >
                     Maximum character count: {announcement.length}/160
                   </Text>
@@ -170,7 +170,7 @@ function App() {
 
               <Button
                 mt={4}
-                colorScheme="teal"
+                colorScheme="blue"
                 type="submit"
                 disabled={
                   isInvalidRecipients ||
