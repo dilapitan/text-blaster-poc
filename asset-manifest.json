@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/text-blaster-poc/static/js/main.939712ff.js",
+    "static/js/377.12f2e8df.chunk.js": "/text-blaster-poc/static/js/377.12f2e8df.chunk.js",
+    "index.html": "/text-blaster-poc/index.html",
+    "main.939712ff.js.map": "/text-blaster-poc/static/js/main.939712ff.js.map",
+    "377.12f2e8df.chunk.js.map": "/text-blaster-poc/static/js/377.12f2e8df.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.939712ff.js"
+  ]
+}
