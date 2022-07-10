@@ -37,13 +37,8 @@ function App() {
      * This is to check each recipient if it's a valid cellphone number
      */
 
-    const recipientsSplitByComma = recipients.split(',');
-
-    // This is to remove the duplicate numbers so the SMS credit won't be wasted.
-    const recipientsWithNoDuplicates = [...new Set(recipientsSplitByComma)];
-
     let isValid = true;
-    recipientsWithNoDuplicates.forEach(recipient => {
+    recipients.forEach(recipient => {
       if (!isValidRecipient(recipient.trim())) {
         isValid = false;
         return isValid;
@@ -61,12 +56,23 @@ function App() {
   };
 
   const handleRecipientsChange = e => {
-    if (e.target.value === '') {
+    const recipients = e.target.value;
+
+    setRecipients(recipients);
+    if (recipients === '') {
       setIsRecipientError(true);
+      return;
     } else setIsRecipientError(false);
 
-    setRecipients(e.target.value);
-    if (isValidRecipients(e.target.value)) {
+    const recipientsSplitByComma = recipients.split(',');
+
+    const trimmed = recipientsSplitByComma.map(recipient => recipient.trim());
+
+    // This is to remove the duplicate numbers so the SMS credit won't be wasted.
+    let recipientsWithNoDuplicates = [...new Set(trimmed)];
+
+    if (isValidRecipients(recipientsWithNoDuplicates)) {
+      setRecipients(recipientsWithNoDuplicates);
       setIsInvalidRecipients(false);
     } else {
       setIsInvalidRecipients(true);
