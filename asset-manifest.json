@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/text-blaster-poc/static/js/main.431b09ec.js",
+    "main.js": "/text-blaster-poc/static/js/main.cba850d6.js",
     "static/js/377.12f2e8df.chunk.js": "/text-blaster-poc/static/js/377.12f2e8df.chunk.js",
     "index.html": "/text-blaster-poc/index.html",
-    "main.431b09ec.js.map": "/text-blaster-poc/static/js/main.431b09ec.js.map",
+    "main.cba850d6.js.map": "/text-blaster-poc/static/js/main.cba850d6.js.map",
     "377.12f2e8df.chunk.js.map": "/text-blaster-poc/static/js/377.12f2e8df.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.431b09ec.js"
+    "static/js/main.cba850d6.js"
   ]
 }
