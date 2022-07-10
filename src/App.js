@@ -42,7 +42,7 @@ function App() {
 
     let isValid = true;
     recipients.forEach(recipient => {
-      if (!isValidRecipient(recipient.trim())) {
+      if (!isValidRecipient(recipient)) {
         isValid = false;
         return isValid;
       }
@@ -72,7 +72,7 @@ function App() {
     const trimmed = recipientsSplitByComma.map(recipient => recipient.trim());
 
     // This is to remove the duplicate numbers so the SMS credit won't be wasted.
-    let recipientsWithNoDuplicates = [...new Set(trimmed)];
+    const recipientsWithNoDuplicates = [...new Set(trimmed)];
 
     if (isValidRecipients(recipientsWithNoDuplicates)) {
       setRecipients(recipientsWithNoDuplicates);
