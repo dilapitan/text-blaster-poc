@@ -19,11 +19,14 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 function App() {
   const MAX_CHARACTER_COUNT = 160;
+  const MAX_NUMBER_OF_RECIPIENTS = 3;
   const [announcement, setAnnouncement] = useState('');
   const [recipients, setRecipients] = useState('');
   const [isAnnouncementError, setIsAnnouncementError] = useState(false);
   const [isRecipientError, setIsRecipientError] = useState(false);
   const [isInvalidRecipients, setIsInvalidRecipients] = useState(false);
+  const [isInvalidNumberOfRecipients, setIsInvalidNumberOfRecipients] =
+    useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
@@ -74,6 +77,11 @@ function App() {
     if (isValidRecipients(recipientsWithNoDuplicates)) {
       setRecipients(recipientsWithNoDuplicates);
       setIsInvalidRecipients(false);
+      if (recipientsWithNoDuplicates.length <= MAX_NUMBER_OF_RECIPIENTS) {
+        setIsInvalidNumberOfRecipients(false);
+      } else {
+        setIsInvalidNumberOfRecipients(true);
+      }
     } else {
       setIsInvalidRecipients(true);
     }
@@ -155,7 +163,13 @@ function App() {
                 <br />
               </FormControl>
 
-              <FormControl isInvalid={isRecipientError || isInvalidRecipients}>
+              <FormControl
+                isInvalid={
+                  isRecipientError ||
+                  isInvalidRecipients ||
+                  isInvalidNumberOfRecipients
+                }
+              >
                 <FormLabel>Recepient(s):</FormLabel>
                 <Text fontSize="xs" ml={1}>
                   Send to multiple numbers by separating with a comma.
@@ -176,6 +190,13 @@ function App() {
                 {!isRecipientError && isInvalidRecipients && (
                   <FormErrorMessage>Invalid contact numbers.</FormErrorMessage>
                 )}
+
+                {isInvalidNumberOfRecipients && (
+                  <FormErrorMessage>
+                    Max number of recipients only up to{' '}
+                    {MAX_NUMBER_OF_RECIPIENTS}.
+                  </FormErrorMessage>
+                )}
               </FormControl>
 
               <br />
@@ -189,6 +210,7 @@ function App() {
                 loadingText="Sending announcement..."
                 disabled={
                   isInvalidRecipients ||
+                  isInvalidNumberOfRecipients ||
                   announcement === '' ||
                   recipients === ''
                 }
