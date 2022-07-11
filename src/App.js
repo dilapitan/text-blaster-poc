@@ -21,7 +21,7 @@ import { sendSMS } from './services/SendSmsService';
 
 function App() {
   const MAX_CHARACTER_COUNT = 160;
-  const MAX_NUMBER_OF_RECIPIENTS = 3;
+  const MAX_NUMBER_OF_RECIPIENTS = 5;
   const [announcement, setAnnouncement] = useState('');
   const [recipients, setRecipients] = useState('');
   const [isAnnouncementError, setIsAnnouncementError] = useState(false);
