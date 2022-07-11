@@ -102,6 +102,8 @@ function App() {
 
     setIsLoading(true);
     sendSMS(announcement, recipients);
+    setAnnouncement('');
+    setRecipients('');
     setIsLoading(false);
     // if (response) {
     //   console.log('response:', response);
