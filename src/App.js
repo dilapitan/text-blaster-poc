@@ -17,6 +17,8 @@ import {
 import { MdSend } from 'react-icons/md';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 
+import { sendSMS } from './services/SendSmsService';
+
 function App() {
   const MAX_CHARACTER_COUNT = 160;
   const MAX_NUMBER_OF_RECIPIENTS = 3;
@@ -100,8 +102,7 @@ function App() {
 
     try {
       setIsLoading(true);
-      console.log('announcement:', announcement);
-      console.log('recipients:', recipients);
+      sendSMS(announcement, recipients);
       setAnnouncement('');
       setRecipients('');
 
