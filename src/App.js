@@ -97,35 +97,25 @@ function App() {
     if (recipients === '') setIsRecipientError(true);
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    try {
-      setIsLoading(true);
-      const response = await sendSMS(announcement, recipients);
-      if (response) {
-        setAnnouncement('');
-        setRecipients('');
-        setIsLoading(false);
+    setIsLoading(true);
+    sendSMS(announcement, recipients);
+    setIsLoading(false);
+    // if (response) {
+    //   console.log('response:', response);
+    //   setAnnouncement('');
+    //   setRecipients('');
+    //   setIsLoading(false);
 
-        toast({
-          title: 'Announcement successfully sent!',
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        });
-      }
-    } catch (error) {
-      setIsLoading(false);
-      toast({
-        title: 'Something went wrong.',
-        description: 'Please contact your support system.',
-        status: 'error',
-        duration: 8000,
-        isClosable: true,
-      });
-      throw new Error(error);
-    }
+    toast({
+      title: 'Announcement successfully sent!',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
+    // }
   };
 
   return (

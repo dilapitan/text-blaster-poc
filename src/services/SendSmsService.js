@@ -1,9 +1,9 @@
-const URL = 'https://api.semaphore.co/api/v4/messages';
+const URL = 'https://semaphore.co/api/v4/messages';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-async function sendSMS(announcement, recipients) {
+function sendSMS(announcement, recipients) {
   try {
-    const response = await fetch(URL, {
+    const response = fetch(URL, {
       body: `apikey=${API_KEY}&number=${recipients}&message=${announcement}`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
