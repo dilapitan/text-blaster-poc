@@ -1,4 +1,4 @@
-const URL = 'api/v4/messages';
+const URL = 'https://api.semaphore.co/api/v4/messages';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 async function sendSMS(announcement, recipients) {

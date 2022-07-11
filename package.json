@@ -3,7 +3,6 @@
   "name": "text-blaster-ui",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://api.semaphore.co/",
   "dependencies": {
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.3",
